@@ -54,3 +54,37 @@ var copyObjectDeep = function (target) {
 var copyObjectViaJSON = function (target) {
     return JSON.parse(JSON.stringify(target));
 };
+
+/**
+ * 유사배열객체(array-like object)에 배열 메서드를 적용
+ * call/apply 메서드의 활용
+ *
+ * 유사배열객체 :
+ *  키가 0 또는 양의 정수인 프로퍼티가 존재하고
+ *  length 프로퍼티 값이 0 또는 양의 정수인 객체
+ *
+ * @type {{"0": string, "1": string, "2": string, length: number}}
+ */
+var obj = {
+    0: 'a',
+    1: 'b',
+    2: 'c',
+    length: 3
+};
+Array.prototype.push.call(obj, 'd');
+console.log(obj);   // {0:'a', 1:'b', 2:'c', 3:'d', length:4}
+
+var arr = Array.prototype.slice.call(obj);
+console.log(arr);   // ['a', 'b', 'c', 'd']
+
+/**
+ * 유사배열객체(array-like object, arguments, NodeList)에 배열 메서드를 적용
+ */
+function a() {
+    var argv = Array.prototype.slice.call(arguments);
+    argv.forEach(function (arg) {
+        console.log(arg);
+    });
+}
+
+a(1, 2, 3);
