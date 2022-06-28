@@ -78,6 +78,18 @@ var arr = Array.prototype.slice.call(obj);
 console.log(arr);   // ['a', 'b', 'c', 'd']
 
 /**
+ * ES6 Array.from 메소드
+ */
+var obj = {
+    0: 'a',
+    1: 'b',
+    2: 'c',
+    length: 3
+};
+var arr = Array.from(obj);
+console.log(arr);   // ['a', 'b', 'c']
+
+/**
  * 유사배열객체(array-like object, arguments, NodeList)에 배열 메서드를 적용
  */
 function a() {
@@ -88,3 +100,45 @@ function a() {
 }
 
 a(1, 2, 3);
+
+/**
+ * ES6 Array.from 메소드
+ */
+var obj = {
+    0: 'a',
+    1: 'b',
+    2: 'c',
+    length: 3
+};
+var arr = Array.from(obj);
+console.log(arr);
+
+/**
+ * ES6 spread operator(...)를 이용하여
+ * 여러 인수를 묶어 하나의 배열로 전달하는 apply 활용 단순화 방식
+ * apply(null, ) -> (...)
+ * @type {number[]}
+ */
+var numbers = [10, 20, 3, 16, 45];
+var max = numbers[0];
+var min = max;
+
+numbers.forEach(function (number) {
+    if (number > max) {
+        max = number;
+    }
+    if (number < min) {
+        min = number;
+    }
+});
+
+console.log(max, min);
+
+max = Math.max.apply(null, numbers);
+min = Math.min.apply(null, numbers);
+console.log(max, min);
+
+// ES6 펼치기 연산자(spread operator)
+const max2 = Math.max(...numbers);
+const min2 = Math.min(...numbers);
+console.log(max2, min2);
